@@ -73,7 +73,7 @@ class FileStorage:
         """Retrieve object from file storage based on class and id"""
         obj_dict = self.all(cls)
         for k, v in obj_dict.items():
-            match = cls + '.' + id
+            match = cls.__name__ + '.' + id
             if k == match:
                 return v
 
