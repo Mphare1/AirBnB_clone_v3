@@ -20,15 +20,17 @@ objects = {
     Review: "reviews"
     }
 
+
 @app_views.route('/status')
 def status():
     """status function"""
     return jsonify({'status': 'OK'})
 
+
 @app_views.route('/stats')
 def stats():
     """return the stats of objects"""
-    my_stats = { }
+    my_stats = {}
 
     for k, v in objects.items():
         my_stats[v] = storage.count(k)
