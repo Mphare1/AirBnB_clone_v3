@@ -19,7 +19,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
-
 class DBStorage:
     """interaacts with the MySQL database"""
     __engine = None
@@ -74,3 +73,16 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """retrieve object from database by class and id"""
+        obj_dict = models.storage.all(cls)
+        for k, v in obj_dict.items():
+            match = cls.__name__ + '.' + id
+            if k ==  match:
+                return v
+
+    def count(self, cls=None):
+        """Count the number of objects in storage"""
+        obj_dict = models.storage.all(cls)
+        return len(obj_dict)
