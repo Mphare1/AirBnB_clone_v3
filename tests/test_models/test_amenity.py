@@ -12,21 +12,20 @@ import pep8
 import unittest
 Amenity = amenity.Amenity
 
-
 class TestAmenityDocs(unittest.TestCase):
     """Tests to check the documentation and style of Amenity class"""
     @classmethod
     def setUpClass(cls):
         """Set up for the doc tests"""
         cls.amenity_f = inspect.getmembers(Amenity, inspect.isfunction)
-
+        
     def test_pep8_conformance_amenity(self):
         """Test that models/amenity.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/amenity.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
-
+        
     def test_pep8_conformance_test_amenity(self):
         """Test that tests/test_models/test_amenity.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
@@ -56,7 +55,6 @@ class TestAmenityDocs(unittest.TestCase):
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
-
 class TestAmenity(unittest.TestCase):
     """Test the Amenity class"""
     def test_is_subclass(self):
@@ -84,7 +82,7 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(type(new_d), dict)
         self.assertFalse("_sa_instance_state" in new_d)
         for attr in am.__dict__:
-            if attr is not "_sa_instance_state":
+            if attr != "_sa_instance_state":
                 self.assertTrue(attr in new_d)
         self.assertTrue("__class__" in new_d)
 
